@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void islandsAndTreasure(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        queue<pair<int, pair<int, int>>>q;
+        for(int i = 0 ; i < m ; ++i){
+            for(int j = 0 ; j < n ; ++j){
+                if(grid[i][j] == 0){
+                    q.push({0, {i, j}});
+                }
+            }
+        }
+        while(!q.empty()){
+            int r = q.front().second.first;
+            int c = q.front().second.second;
+            int steps = q.front().first;
+            q.pop();
+            int row[4] = {-1, 0, 1, 0};
+            int col[4] = {0, 1, 0, -1};
+            for(int i = 0 ; i < 4 ; ++i){
+                int rc = r + row[i];
+                int cc = c + col[i];
+                if(rc<m and cc<n and rc>=0 and cc>=0 
+                and grid[rc][cc] == 2147483647){
+                    grid[rc][cc] = steps+1;
+                    q.push({steps+1, {rc, cc}});
+                }
+            }
+        }
+        return ;
+    }
+};
